@@ -1,0 +1,127 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --default-space: 1rem;
+  font-size: 16px;
+}
+
+:is(section, div).content {
+  margin-top: var(--default-space);
+}
+
+.flow > * + * {
+  margin-top: calc(var(--default-space) * 1);
+}
+
+.flow-large > * + * {
+  margin-top: calc(var(--default-space) * 1.6);
+}
+
+.centered-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  line-height: 1.4;
+}
+p.center {
+  text-align: center;
+}
+p.faded {
+  color: rgba(0, 0, 0, 0.38);
+}
+p.note {
+  font-size: 0.8rem;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+strong {
+  font-weight: 900;
+}
+
+.horizontal-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+:root {
+  --bg-color: #1e213f;
+  --txt-clr-primary: #eff1fa;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--txt-clr-primary);
+  font-family: "Roboto Slap", sans-serif;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.outer-circle {
+  border-radius: 50%;
+  background-image: linear-gradient(-45deg, #2e325a, #0e112a);
+  box-shadow: -20px -20px 60px 0 rgba(67, 113, 206, 0.3), 4px 4px 30px rgba(0, 0, 32, 0.4);
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+.outer-circle:hover {
+  filter: brightness(1.1);
+}
+.outer-circle:active {
+  transform: scale(0.99);
+}
+
+.inner-circle {
+  position: relative;
+  border-radius: 50%;
+  background-color: #161932;
+  margin: 1rem;
+}
+
+.inner-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.elapsed-time {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.action-label {
+  font-size: 1rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+circle {
+  transition: stroke-dashoffset 100ms linear;
+}
+
+/*# sourceMappingURL=main.css.map */

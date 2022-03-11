@@ -1,0 +1,74 @@
+@mixin centered-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin full-page {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --default-space: 1rem;
+
+  font-size: 16px;
+}
+
+:is(section, div).content {
+  margin-top: var(--default-space);
+}
+
+.flow > * + * {
+  margin-top: calc(var(--default-space) * 1);
+}
+
+.flow-large > * + * {
+  margin-top: calc(var(--default-space) * 1.6);
+}
+
+.centered-items {
+  @include centered-items;
+}
+
+p {
+  // letter-spacing: 0.2px;
+  line-height: 1.4;
+
+  &.center {
+    text-align: center;
+  }
+
+  &.faded {
+    color: rgba(black, 0.38);
+  }
+
+  &.note {
+    font-size: 0.8rem;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+strong {
+  font-weight: 900;
+}
+
+.horizontal-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
