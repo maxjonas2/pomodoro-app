@@ -1,42 +1,47 @@
 import React, { useEffect, useRef, useState } from "react";
 
-function parseTime(totalMinutes, elapsed, interval) {
-  if ((elapsed * interval) % 1000 === 0) {
-    console.log("1 second");
-  }
+function parseToMinutes(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${minutes.toString().padStart(2, "0")}:${secs
+    .toString()
+    .padStart(2, "0")}`;
 }
 
-export default function Timer({ size = 300 }) {
+export default function Timer({
+  elapsed,
+  isRunning,
+  togglePaused,
+  size = 350,
+  iterationDuration,
+  duration
+}) {
   const SIZE = size;
-  const TOTAL_TIME = 10;
-  const INTERVAL = 100;
-
-  const circleRef = useRef();
-  const timerRef = useRef(null);
+  const TOTAL_SECONDS = duration;
+  const ITERATIONS_PER_SECOND = 1000 / iterationDuration;
 
   const [circleLength, setCircleLength] = useState(0);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [timerRunning, setTimerRunning] = useState(false);
+  const [currentLength, setCurrentLength] = useState(0);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+
+  const circleRef = useRef();
+  const leapSize = useRef(0);
 
   useEffect(() => {
-    if (!timerRunning) return;
-    timerRef.current = setTimeout(() => {
-      setElapsedTime(elapsedTime + 1);
-      //   parseTime(2, elapsedTime, INTERVAL);
-
-      return () => clearTimeout(timerRef.current);
-    }, INTERVAL);
-  }, [elapsedTime, timerRunning]);
-
-  useEffect(() => {
-    setCircleLength(circleRef?.current.getTotalLength());
+    const _circleLength = circleRef?.current.getTotalLength();
+    setCircleLength(_circleLength);
+    leapSize.current = _circleLength / (duration * (1000 / iterationDuration));
   }, []);
 
+  useEffect(() => {
+    setCurrentLength(elapsed * leapSize.current);
+    if (elapsed % ITERATIONS_PER_SECOND === 0) {
+      setElapsedSeconds(elapsed / ITERATIONS_PER_SECOND);
+    }
+  }, [elapsed]);
+
   return (
-    <div
-      className="outer-circle"
-      onClick={() => setTimerRunning(!timerRunning)}
-    >
+    <div className="outer-circle" onClick={togglePaused}>
       <div className="inner-circle">
         <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`}>
           <circle
@@ -48,16 +53,14 @@ export default function Timer({ size = 300 }) {
             fill="transparent"
             strokeWidth={6}
             strokeDasharray={circleLength}
-            strokeDashoffset={
-              circleLength -
-              (circleLength / (TOTAL_TIME * 10)) *
-                (TOTAL_TIME * (1000 / INTERVAL) - elapsedTime)
-            }
+            strokeDashoffset={circleLength - currentLength}
           />
         </svg>
         <div className="inner-container flow-large">
-          <div className="elapsed-time">18:00</div>
-          <div className="action-label">{timerRunning ? "Pause" : "Start"}</div>
+          <div className="elapsed-time">
+            {parseToMinutes(TOTAL_SECONDS - elapsedSeconds)}
+          </div>
+          <div className="action-label">{isRunning ? "Pause" : "Start"}</div>
         </div>
       </div>
     </div>
