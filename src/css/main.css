@@ -124,4 +124,27 @@ circle {
   transition: stroke-dashoffset 500ms linear;
 }
 
+.selector {
+  --radius: 26px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #01003a;
+  border-radius: var(--radius);
+}
+.selector > .mode {
+  width: 100px;
+  text-align: center;
+  margin: 6px;
+  padding: 0.6rem 0;
+  border-radius: calc(var(--radius) / 1.4);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+.selector > .mode.selected {
+  background-color: tomato;
+  color: #01003a;
+}
+
 /*# sourceMappingURL=main.css.map */

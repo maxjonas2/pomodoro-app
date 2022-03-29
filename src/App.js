@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import ModeSelector from "./components/ModeSelector";
 import Timer from "./components/Timer";
 
 export default function App() {
@@ -8,6 +9,7 @@ export default function App() {
   const [elapsed, setElapsed] = useState(0);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [running, setRunning] = useState(true);
+  const [currentMode, setCurrentMode] = useState("pomodoro");
   const timerRef = useRef(0);
 
   const timer = useRef();
@@ -36,7 +38,11 @@ export default function App() {
   return (
     <div className="app-container flow-large">
       <h1>pomodoro</h1>
-      <div className="selector"></div>
+      <ModeSelector
+        modes={["pomodoro", "short break", "long break"]}
+        selected={currentMode}
+        handleClick={setCurrentMode}
+      />
       <Timer
         elapsed={elapsed}
         unit={1000}

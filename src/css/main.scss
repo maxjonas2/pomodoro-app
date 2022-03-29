@@ -64,3 +64,29 @@ body {
 circle {
   transition: stroke-dashoffset 500ms linear;
 }
+
+.selector {
+  --radius: 26px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(1, 0, 58);
+  border-radius: var(--radius);
+
+  & > .mode {
+    width: 100px;
+    text-align: center;
+    margin: 6px;
+    padding: 0.6rem 0;
+    border-radius: calc(var(--radius) / 1.4);
+    color: rgba(white, 0.4);
+    cursor: pointer;
+
+    &.selected {
+      background-color: tomato;
+      color: rgb(1, 0, 58);
+    }
+  }
+}
