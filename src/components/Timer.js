@@ -11,10 +11,11 @@ function parseToMinutes(seconds) {
 export default function Timer({
   elapsed,
   isRunning,
-  togglePaused,
+  toggleHandler,
   size = 350,
   iterationDuration,
-  duration
+  duration,
+  running
 }) {
   const SIZE = size;
   const TOTAL_SECONDS = duration;
@@ -41,7 +42,7 @@ export default function Timer({
   }, [elapsed]);
 
   return (
-    <div className="outer-circle" onClick={togglePaused}>
+    <div className="outer-circle" onClick={toggleHandler}>
       <div className="inner-circle">
         <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`}>
           <circle
@@ -60,7 +61,7 @@ export default function Timer({
           <div className="elapsed-time">
             {parseToMinutes(TOTAL_SECONDS - elapsedSeconds)}
           </div>
-          <div className="action-label">{isRunning ? "Pause" : "Start"}</div>
+          <div className="action-label">{running ? "Pause" : "Start"}</div>
         </div>
       </div>
     </div>
